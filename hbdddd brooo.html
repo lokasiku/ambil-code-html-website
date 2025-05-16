@@ -1,67 +1,89 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>HBD Bang Koding Dari Micola</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
-    />
-  </head>
-  <body
-    style="
-      background-image: url(https://images.unsplash.com/photo-1530273973427-22351773250c?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D);
-    "
-    class="flex justify-center h-screen items-center"
-  >
-    <div
-      class="bg-white border px-10 py-8 border-4 border-gray-300 shadow-lg shadow-blue-300 rounded-xl text-center animate__animated animate__backInDown m-8 w-80"
-      id="kartu"
-    >
-      <h1 class="text-3xl">Happy Birthday</h1>
-      <h1
-        class="text-4xl text-blue-500 font-bold animate__animated animate__pulse animate__infinite"
-      >
-        Yilzi Shop
-      </h1>
-      <button
-        class="p-2 bg-blue-600 text-white rounded mt-5 hover:bg-blue-900 transition ease-in w-full animate__animated animate__delay-1s animate__tada"
-        onclick="ubahKartu()"
-      >
-        Klik Disini Bro!
-      </button>
-    </div>
+<!DOCTYPE html><html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ambil Kode HTML Website</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #330000, #660000);
+      color: #fff;
+      margin: 0;
+      padding: 40px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    h1 {
+      font-size: 2.5em;
+      margin-bottom: 20px;
+    }
+    input[type="text"] {
+      width: 100%;
+      max-width: 600px;
+      padding: 12px;
+      font-size: 1em;
+      border-radius: 8px;
+      border: none;
+      margin-bottom: 15px;
+      outline: none;
+    }
+    button {
+      background-color: #cc0000;
+      color: white;
+      padding: 10px 25px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 1em;
+      margin-bottom: 20px;
+      transition: background 0.3s ease;
+    }
+    button:hover {
+      background-color: #ff0000;
+    }
+    pre {
+      width: 100%;
+      max-width: 800px;
+      background-color: #220000;
+      padding: 20px;
+      border-radius: 8px;
+      overflow-x: auto;
+      white-space: pre-wrap;
+      word-wrap: break-word;
+      margin-bottom: 15px;
+      min-height: 200px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Ambil Kode HTML Website</h1>
+  <input type="text" id="urlInput" placeholder="https://example.com">
+  <button onclick="getHTML()">Ambil HTML</button>
+  <pre id="outputHTML">Kode HTML akan tampil di sini...</pre>
+  <button onclick="copyHTML()">Salin Kode HTML</button>  <script>
+    async function getHTML() {
+      const url = document.getElementById("urlInput").value;
+      const output = document.getElementById("outputHTML");
+      output.textContent = "Sedang mengambil kode HTML...";
+      try {
+        const response = await fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(url)}`);
+        if (!response.ok) throw new Error('Gagal fetch');
+        const data = await response.json();
+        output.textContent = data.contents;
+      } catch (err) {
+        output.textContent = "Gagal ambil HTML. Coba URL lain atau periksa koneksi.";
+      }
+    }
 
-    <script src="https://cdn.jsdelivr.net/npm/@tsparticles/confetti@3.0.3/tsparticles.confetti.bundle.min.js"></script>
-    <script>
-      confetti({
-        particleCount: 100,
-        spread: 70,
-        origin: { y: 0.6 },
-      });
-      let kartu = document.getElementById("kartu");
-      function ubahKartu() {
-        kartu.innerHTML = `    <h1 class="font-semibold text-wrap animate__animated animate__zoomIn">
-      Selamat ulang tahun, bro! Semoga tahun ini makin banyak kebahagiaan,
-      rezeki lancar, dan segala impian jadi kenyataan. Semoga kita terus bisa
-      bareng-bareng, seru-seruan, dan saling dukung ya! 🎉🎂
-    </h1>
-    <h2 class="mt-3 animate__animated animate__fadeIn">
-      - Dari : CerahPay Shop -
-    </h2>
-    <button
-      class="p-2 bg-slate-600 text-white rounded mt-5 hover:bg-slate-900 transition ease-in w-full animate__animated animate__delay-1s animate__tada"
-      onclick="refresh()"
-    >
-      Tutup
-    </button>
-    `;
-      }
-      function refresh() {
-        location.reload();
-      }
-    </script>
-  </body>
+    function copyHTML() {
+      const text = document.getElementById("outputHTML").textContent;
+      navigator.clipboard.writeText(text)
+        .then(() => alert("Kode HTML berhasil disalin!"))
+        .catch(() => alert("Gagal menyalin kode HTML."));
+    }
+  </script></body>
 </html>
